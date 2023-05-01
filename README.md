@@ -1,5 +1,5 @@
 # Hi! 這裡是長條貓的測試部落格
-Building with Astro ......  
+Under construction with Astro ......  
 
 # Credit
 astro official blog template
