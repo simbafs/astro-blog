@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'>;
+
+const { href, class: className, ...props } = Astro.props;
+const { origin } = Astro.url
+
+function isExternal(url: typeof href){
+	if(!url) return false
+
+	if(typeof url === 'string' && !url.match(/http/)){
+		return false
+	}
+
+	try{
+		return origin !== (new URL(url)).origin
+	}catch(e){
+		return false
+	}
+}
+---
+
+{isExternal(href) ?
+<a href={href} target="_blank" {...props}>
+	<slot />
+</a> :
+<a href={href} {...props}>
+	<slot />
+</a> }
+<style>
+	a {
+		display: inline-block;
+		text-decoration: none;
+	}
+</style>
