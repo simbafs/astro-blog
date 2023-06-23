@@ -1,0 +1,48 @@
+---
+import PS1 from '../components/terminal/PS1.astro'
+import Exec from '../components/terminal/Exec.astro'
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @font-face {
+            font-family: "Hack";
+            src: url("/Hack-NF.ttf");
+        }
+
+        * {
+            background-color: #002b36;
+            color: #fdf6e3;
+            font-family: "Hack";
+        }
+
+        body {
+            margin: 0px;
+        }
+
+        #outer {
+            height: calc(100vh - 20px - 40px - 6px);
+            width: calc(100vw - 20px - 40px - 6px);
+            margin: 10px;
+            padding: 20px;
+            border: solid #eee8d5 3px;
+            border-radius: 7px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer">
+        <PS1 cmd="banner"/>
+        <Exec args={['banner']}/>
+        <PS1 input={true} />
+    </div>
+</body>
+
+</html>
