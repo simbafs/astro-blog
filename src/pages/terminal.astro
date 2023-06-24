@@ -1,12 +1,11 @@
 ---
-import PS1 from '../components/terminal/PS1.astro'
-import Exec from '../components/terminal/Exec.astro'
+import Terminal from '../components/terminal/index.tsx'
 ---
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Demo</title>
+        <title>Terminal</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <style>
@@ -22,13 +21,11 @@ import Exec from '../components/terminal/Exec.astro'
         </style>
     </head>
 
-    <body class="m-0 bg-base03 text-base3">
+    <body class="m-0 bg-base03 text-base3 leading-5">
         <div
-            class="h-[calc(100vh-1rem*2)] w-[calc(100vw-1rem*2)] m-4 p-5 border-solid border-2 border-base2 rounded-lg"
+            class="h-[calc(100vh-1rem*2)] w-[calc(100vw-1rem*2)] m-4 p-5 border-solid border-2 border-base2 rounded-lg overflow-y-scroll"
         >
-            <PS1 cmd="banner" />
-            <Exec args={['banner']} />
-            <PS1 input={true} />
+            <Terminal client:only />
         </div>
     </body>
 </html>

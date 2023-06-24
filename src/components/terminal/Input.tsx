@@ -1,0 +1,35 @@
+import React, { useState } from 'react'
+import { cmdList } from '../../shell/index'
+
+export default function Input({
+	addLine,
+}: {
+	addLine: (line: string) => void
+}) {
+	const [value, setValue] = useState('')
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setValue(e.target.value)
+	}
+
+	const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key !== 'Enter') return
+		addLine(value)
+		setValue('')
+	}
+
+	return (
+		<input
+			type="text"
+			className={`bg-base03 border-none outline-none flex-grow ${
+				cmdList.includes(value) ? 'text-green' : 'text-red'
+			}`}
+			autoFocus={true}
+			autoComplete="off"
+			spellCheck="false"
+			value={value}
+			onChange={handleChange}
+			onKeyDown={handleEnter}
+		/>
+	)
+}
