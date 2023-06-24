@@ -1,6 +1,9 @@
 import cfonts from 'cfonts'
 
 // TODO: auto load every js file in this directory
+// maybe this https://stackoverflow.com/questions/75126196/dynamically-import-all-images-from-a-folder-in-astro
+// or this https://stackoverflow.com/questions/44987464/import-all-modules-from-a-directory-at-once-node
+// or this https://stackoverflow.com/questions/5364928/node-js-require-all-files-in-a-folder
 
 export default function shell(args) {
     const cmd = cmds[args[0]]
@@ -20,7 +23,14 @@ function commandNotFound(args) {
 }
 
 function banner(_) {
-    const link = (external, url, text) => `<a href="${url}" ${external && 'target="_blank"'}>${text ? text : url}</a>`
+    /** 
+    * @desc render link
+    * @param {string} url
+    * @param {object} opt
+    * @param {string} opt.text
+    * @param {boolean} opt.external
+    */
+    const link = (url, opt) => `<a class="underline hover:underline-offset-1" href="${url}" ${opt.external && 'target="_blank"'}>${opt.text ? opt.text : url}</a>`
 
     return cfonts.render('simbafs.cc', {
         font: 'slick',
@@ -29,6 +39,6 @@ function banner(_) {
         env: 'browser',
     }).string.replaceAll('<br>', '') + '<br>' +
         '# Social' + '<br>' +
-        '•' + link(true, 'https://github.com/simbafs', 'github') + '<br>' +
-        '•' + link(true, 'https://twitter.com/simbafs', 'twitter') + '<br>'
+        '• ' + link('https://github.com/simbafs', { text: 'GitHub', external: true }) + '<br>' +
+        '• ' + link('https://twitter.com/simbafs', { text: 'Twitter', external: true }) + '<br>'
 }

@@ -5,44 +5,30 @@ import Exec from '../components/terminal/Exec.astro'
 
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <title>Demo</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            @font-face {
+                font-family: 'Hack';
+                src: url('/Hack-NF.ttf');
+            }
 
-<head>
-    <title>Demo</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        @font-face {
-            font-family: "Hack";
-            src: url("/Hack-NF.ttf");
-        }
+            * {
+                box-sizing: border-box;
+                font-family: 'Hack';
+            }
+        </style>
+    </head>
 
-        * {
-            background-color: #002b36;
-            color: #fdf6e3;
-            font-family: "Hack";
-        }
-
-        body {
-            margin: 0px;
-        }
-
-        #outer {
-            height: calc(100vh - 20px - 40px - 6px);
-            width: calc(100vw - 20px - 40px - 6px);
-            margin: 10px;
-            padding: 20px;
-            border: solid #eee8d5 3px;
-            border-radius: 7px;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="outer">
-        <PS1 cmd="banner"/>
-        <Exec args={['banner']}/>
-        <PS1 input={true} />
-    </div>
-</body>
-
+    <body class="m-0 bg-base03 text-base3">
+        <div
+            class="h-[calc(100vh-1rem*2)] w-[calc(100vw-1rem*2)] m-4 p-5 border-solid border-2 border-base2 rounded-lg"
+        >
+            <PS1 cmd="banner" />
+            <Exec args={['banner']} />
+            <PS1 input={true} />
+        </div>
+    </body>
 </html>

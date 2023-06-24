@@ -1,29 +1,14 @@
 ---
-import Input from './Input.astro';
+import Input from './Input.astro'
 
-const { input, cmd } = Astro.props;
+const { input, cmd } = Astro.props
 ---
 
-<style>
-        .username {
-                color: #268bd2;
-        }
-
-        .at {
-                color: #2aa198;
-        }
-
-        .host {
-                color: #859900
-        }
-
-        .prompt {
-                color: #2aa198;
-        }
-</style>
 <div id="ps1">
-        <span class="username">vistor</span><span class="at">@</span><span class="host">blog.simbafs.cc</span><span
-                class="prompt">:$ ~</span>
-        { input && <Input /> }
+        <span class="text-blue">vistor</span><span class="text-cyan">@</span
+        ><span class="text-green">blog.simbafs.cc</span><span class="text-cyan"
+                >:$ ~</span
+        >
+        {input && <Input />}
         <span>{cmd}</span>
 </div>
