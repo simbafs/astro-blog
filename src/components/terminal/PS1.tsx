@@ -22,7 +22,7 @@ export default function PS1({
 			<div className="flex">
 				<span className="text-cyan whitespace-nowrap">$&nbsp;</span>
 				{updateHistory && <Input updateHistory={updateHistory} />}
-				<span className="">{cmd}</span>
+				<span className="">{cmd?.join(' ')}</span>
 			</div>
 		</>
 	)

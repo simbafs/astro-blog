@@ -33,19 +33,13 @@ const cmds: { [cmd: string]: (prop: Props) => React.JSX.Element } = {
 	clear: clear,
 	banner: banner,
 	help: help,
+	echo: echo,
 	commandNotFound: commandNotFound,
 }
 
 export const cmdList = Object.keys(cmds)
 
-function commandNotFound({ args }: Props) {
-	return <p>command not found: {args[1]}</p>
-}
-
-function clear({ terminal }: Props) {
-	terminal.updateHistory({ clear: true })
-	return <></>
-}
+// helpers
 
 function ClickCmd({ cmd, terminal }: { cmd: string, terminal: Terminal }) {
 	return <a
@@ -55,11 +49,26 @@ function ClickCmd({ cmd, terminal }: { cmd: string, terminal: Terminal }) {
 	> {cmd}</a>
 }
 
-function help({ terminal }: Props) {
-	function insertBetween(arr: any, between: any) {
-		return arr.reduce((acc: any, curr: any) => [...acc, between, curr], []).slice(1)
-	}
+function insertBetween(arr: any, between: any) {
+	return arr.reduce((acc: any, curr: any) => [...acc, between, curr], []).slice(1)
+}
 
+// cmds
+
+function commandNotFound({ args }: Props) {
+	return <p>command not found: {args[1]}</p>
+}
+
+function echo({ args }: Props) {
+	return <p>{args.slice(1).join(' ')}</p>
+}
+
+function clear({ terminal }: Props) {
+	terminal.updateHistory({ clear: true })
+	return <></>
+}
+
+function help({ terminal }: Props) {
 	return <p>Available commands: {insertBetween(cmdList.map(cmd => <ClickCmd cmd={cmd} terminal={terminal} />), ', ')}</p >
 }
 

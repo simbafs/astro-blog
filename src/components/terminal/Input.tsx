@@ -26,8 +26,7 @@ export default function Input({
 	return (
 		<input
 			type="text"
-			className={`bg-base03 border-none outline-none flex-grow ${cmdList.includes(value) ? 'text-green' : 'text-red'
-				}`}
+			className={`bg-base03 border-none outline-none flex-grow ${cmdList.includes(value.split(' ')[0]) || value.length === 0 ? 'text-green' : 'text-red'}`}
 			autoFocus={true}
 			autoComplete="off"
 			spellCheck="false"
