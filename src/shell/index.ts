@@ -3,36 +3,50 @@
 // or this https://stackoverflow.com/questions/44987464/import-all-modules-from-a-directory-at-once-node
 // or this https://stackoverflow.com/questions/5364928/node-js-require-all-files-in-a-folder
 
-export default function shell(args) {
-	const cmd = cmds[args[0]]
-	if (!cmd) {
-		return cmds['commandNotFound'](args)
-	}
-	return cmd(args)
+import React from "react"
+
+type Terminal = {
+	history: string[]
+	updateHistory: React.Dispatch<{
+		clear?: boolean
+		next?: string[][]
+	}>
 }
 
-const cmds = {
+
+export default function shell(args: string[], terminal: Terminal) {
+	const cmd = cmds[args[0]]
+	if (!cmd) {
+		return cmds['commandNotFound'](args, terminal)
+	}
+	return cmd(args, terminal)
+}
+
+const cmds: { [cmd: string]: (args: string[], terminal: Terminal) => string } = {
+	clear: clear,
 	banner: banner,
+	help: help,
 	commandNotFound: commandNotFound,
 }
 
 export const cmdList = Object.keys(cmds)
 
-function commandNotFound(args) {
+function commandNotFound(args: string[]) {
 	return `command not found: ${args[0]}`
 }
 
-function banner(_) {
-	/**
-	 * @desc render link
-	 * @param {string} url
-	 * @param {object} opt
-	 * @param {string} opt.text
-	 * @param {boolean} opt.external
-	 */
-	const link = (url, opt) =>
-		`<a class="underline hover:underline-offset-1" href="${url}" ${
-			opt.external && 'target="_blank"'
+function clear(args: string[], terminal: Terminal) {
+	terminal.updateHistory({ clear: true })
+	return ''
+}
+
+function help() {
+	return 'Available commands: ' + cmdList.join(', ')
+}
+
+function banner() {
+	const link = (url: string, opt: { text: string, external: boolean }) =>
+		`<a class="underline hover:underline-offset-1" href="${url}" ${opt.external && 'target="_blank"'
 		}>${opt.text ? opt.text : url}</a>`
 
 	return (

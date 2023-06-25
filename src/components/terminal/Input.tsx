@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { cmdList } from '../../shell/index'
 
 export default function Input({
-	addLine,
+	updateHistory,
 }: {
-	addLine: (line: string) => void
+	updateHistory: React.Dispatch<{
+		clear?: boolean
+		next?: string[][]
+	}>
 }) {
 	const [value, setValue] = useState('')
 
@@ -14,16 +17,17 @@ export default function Input({
 
 	const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key !== 'Enter') return
-		addLine(value)
+		updateHistory({
+			next: [value.split(' ')],
+		})
 		setValue('')
 	}
 
 	return (
 		<input
 			type="text"
-			className={`bg-base03 border-none outline-none flex-grow ${
-				cmdList.includes(value) ? 'text-green' : 'text-red'
-			}`}
+			className={`bg-base03 border-none outline-none flex-grow ${cmdList.includes(value) ? 'text-green' : 'text-red'
+				}`}
 			autoFocus={true}
 			autoComplete="off"
 			spellCheck="false"
