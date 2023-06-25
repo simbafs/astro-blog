@@ -2,7 +2,9 @@ import { useReducer } from 'react'
 import PS1 from './PS1.tsx'
 import Exec from './Exec.tsx'
 
-export default function Terminal() {
+export default function Terminal({ initCmd }: {
+	initCmd: string[][]
+}) {
 	const [history, updateHistory] = useReducer(
 		(prev: string[][], action: {
 			clear?: boolean,
@@ -11,7 +13,7 @@ export default function Terminal() {
 			if (action.clear) return []
 			return [...prev, ...action?.next || []]
 		},
-		[['banner']],
+		initCmd || [],
 	)
 
 	return <>

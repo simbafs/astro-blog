@@ -1,0 +1,50 @@
+---
+import BaseHead from '../components/BaseHead.astro'
+import NavLink from '../components/NavLink.astro'
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <BaseHead title="Terminal" description="this is a terminal like blog" />
+    </head>
+    <body>
+        <div class="m-0 h-screen w-screen bg-base03 p-4 leading-5 text-base3">
+            <div
+                class="h-full w-full rounded-lg border-2 border-solid border-base2"
+            >
+                <div class="flex flex-wrap border-b-2 px-2 py-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="h-4 w-4 shrink-0 rounded-full bg-red"></div>
+                        <div class="h-4 w-4 shrink-0 rounded-full bg-yellow">
+                        </div>
+                        <div class="h-4 w-4 shrink-0 rounded-full bg-green">
+                        </div>
+                    </div>
+                    <div class="grow">
+                        <p class="break-all font-bold text-center">
+                            &gt; ssh blog.simbafs.cc &lt;
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center space-x-2">
+                        <NavLink href="/">[H]ome</NavLink>
+                        <NavLink href="/achieve">[A]chieve</NavLink>
+                        <NavLink href="/search">[S]earch</NavLink>
+                        <NavLink href="/about">a[B]out</NavLink>
+                        <NavLink href="/tag">[T]ag</NavLink>
+                        <!-- <span class="bg-base3 text-base03 hover:underline" -->
+                        <!--     >[H]ome</span -->
+                        <!-- > -->
+                        <!-- <span class="hover:underline">[A]chieve</span> -->
+                        <!-- <span class="hover:underline">[S]earch</span> -->
+                        <!-- <span class="hover:underline">a[B]out</span> -->
+                        <!-- <span class="hover:underline">[T]ag</span> -->
+                    </div>
+                </div>
+                <div class="p-1">
+                    <slot />
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
