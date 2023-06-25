@@ -22,26 +22,35 @@ import Terminal from '../components/terminal/index.tsx'
     </head>
     <body>
         <div
-            class="bg-base03 text-base3 m-0 box-border h-screen w-screen p-4 leading-5"
+            class="m-0 box-border h-screen w-screen bg-base03 p-4 leading-5 text-base3"
         >
             <div
-                class="border-base2 flex h-full w-full flex-col rounded-lg border-2 border-solid"
+                class="h-full w-full rounded-lg border-2 border-solid border-base2"
             >
-                <div class="flex h-10 space-x-2 border-b-2 pl-2">
-                    <div class="bg-red my-auto h-4 w-4 rounded-full"></div>
-                    <div class="bg-yellow my-auto h-4 w-4 rounded-full"></div>
-                    <div class="bg-green my-auto h-4 w-4 rounded-full"></div>
+                <div class="flex h-10 space-x-2 pl-2">
+                    <div class="my-auto h-4 w-4 shrink-0 rounded-full bg-red">
+                    </div>
+                    <div
+                        class="my-auto h-4 w-4 shrink-0 rounded-full bg-yellow"
+                    >
+                    </div>
+                    <div class="my-auto h-4 w-4 shrink-0 rounded-full bg-green">
+                    </div>
                     <div class="my-auto">
-                        <p class="h-auto">Firefox: https://blog.simbafs.cc</p>
+                        <p class="h-auto break-all">ssh blog.simbafs.cc</p>
                     </div>
                 </div>
-                <div class="grid grow grid-cols-6">
-                    <div class="border-r-2">
-                        <p>menu</p>
-                    </div>
-                    <div class="col-span-5 p-1">
-                        <Terminal client:only />
-                    </div>
+                <div class="border-b-2 p-1 pt-0">
+                    <span class="hover:underline bg-base3 text-base03"
+                        >[H]ome</span
+                    >
+                    <span class="hover:underline">[A]chieve</span>
+                    <span class="hover:underline">[S]earch</span>
+                    <span class="hover:underline">a[B]out</span>
+                    <span class="hover:underline">[T]ag</span>
+                </div>
+                <div class="p-1">
+                    <Terminal client:only />
                 </div>
             </div>
         </div>

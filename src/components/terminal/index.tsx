@@ -11,18 +11,20 @@ export default function Terminal() {
 			if (action.clear) return []
 			return [...prev, ...action?.next || []]
 		},
-		[['banner']]
+		[['banner']],
 	)
 
 	return <>
 		{history.map(cmd => (
-			<>
+			<div style={{
+				wordBreak: 'break-all',
+			}}>
 				<PS1 cmd={cmd} />
 				<Exec args={cmd} terminal={{
 					history,
 					updateHistory,
 				}} />
-			</>
+			</div>
 		))}
 		<PS1 updateHistory={updateHistory} />
 	</>
