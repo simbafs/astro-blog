@@ -10,6 +10,7 @@ export default function PS1({
 		next?: string[][]
 	}>
 }) {
+	// TODO: something wrong when input is too long
 	return (
 		<div className="flex">
 			<span className="text-blue">vistor</span>

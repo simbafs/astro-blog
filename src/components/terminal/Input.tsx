@@ -31,6 +31,7 @@ export default function Input({
 			autoFocus={true}
 			autoComplete="off"
 			spellCheck="false"
+			tabIndex={0}
 			value={value}
 			onChange={handleChange}
 			onKeyDown={handleEnter}

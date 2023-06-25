@@ -1,4 +1,4 @@
-import shell from '../../shell'
+import Shell from '../../shell'
 
 export default function Exec({ args, terminal }: {
 	args: string[]
@@ -10,5 +10,5 @@ export default function Exec({ args, terminal }: {
 		}>
 	}
 }) {
-	return <div dangerouslySetInnerHTML={{ __html: shell(args, terminal) }} />
+	return <Shell args={args} terminal={terminal} />
 }
