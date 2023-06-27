@@ -46,12 +46,12 @@ export const cmdList = Object.keys(cmds)
 
 // helpers
 
-function ClickCmd({ cmd, terminal }: { cmd: string, terminal: Terminal }) {
+function ClickCmd({ cmd, terminal }: { cmd: string[], terminal: Terminal }) {
 	return <a
 		className="underline hover:underline-offset-1"
 		href="javascript:void(0)"
-		onClick={() => terminal.updateHistory({ next: [[cmd]] })}
-	> {cmd}</a>
+		onClick={() => terminal.updateHistory({ next: [cmd] })}
+	> {cmd.join(' ')}</a>
 }
 
 function insertBetween(arr: any, between: any): any[] {
@@ -146,6 +146,7 @@ function banner({ terminal }: Props) {
 		<p>• <a href="https://github.com/simbafs" target="_blank" className="underline hover:underline-offset-1">GitHub</a></p>
 		<p>• <a href="https://twitter.com/simbafs" target="_blank" className="underline hover:underline-offset-1">Twitter</a></p>
 		<br />
-		<p>use <ClickCmd cmd="help" terminal={terminal} /> to list all commands</p>
+		<p>use <ClickCmd cmd={['cmd']} terminal={terminal} /> to list all commands</p>
+		<p>use <ClickCmd cmd={['cd', 'blog']} terminal={terminal} /> to read blog posts</p>
 	</>
 }
