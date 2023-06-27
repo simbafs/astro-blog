@@ -130,7 +130,7 @@ function clear({ terminal }: Props) {
 }
 
 function help({ terminal }: Props) {
-	return <p>Available commands: {insertBetween(cmdList.map(cmd => <ClickCmd cmd={cmd} terminal={terminal} />), ', ')}</p >
+	return <p>Available commands: {insertBetween(cmdList.map(cmd => <ClickCmd cmd={[cmd]} terminal={terminal} />), ', ')}</p >
 }
 
 function banner({ terminal }: Props) {
@@ -147,7 +147,7 @@ function banner({ terminal }: Props) {
 		<p>• <a href="https://github.com/simbafs" target="_blank" className="underline hover:underline-offset-1">GitHub</a></p>
 		<p>• <a href="https://twitter.com/simbafs" target="_blank" className="underline hover:underline-offset-1">Twitter</a></p>
 		<br />
-		<p>use <ClickCmd cmd={['cmd']} terminal={terminal} /> to list all commands</p>
+		<p>use <ClickCmd cmd={['help']} terminal={terminal} /> to list all commands</p>
 		<p>use <ClickCmd cmd={['cd', 'blog']} terminal={terminal} /> to read blog posts</p>
 	</>
 }
