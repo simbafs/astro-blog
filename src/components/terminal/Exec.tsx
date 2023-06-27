@@ -1,6 +1,7 @@
 import Shell from '../../shell'
+import { CollectionEntry } from 'astro:content'
 
-export default function Exec({ args, terminal }: {
+export default function Exec({ args, terminal, data }: {
 	args: string[]
 	terminal: {
 		history: string[][]
@@ -8,7 +9,13 @@ export default function Exec({ args, terminal }: {
 			clear?: boolean
 			next?: string[][]
 		}>
+		files?: CollectionEntry<'blog'>[]
 	}
+	data?: any
 }) {
-	return <Shell args={args} terminal={terminal} />
+	return <Shell
+		args={args}
+		terminal={terminal}
+		data={data}
+	/>
 }

@@ -4,6 +4,7 @@
 // or this https://stackoverflow.com/questions/5364928/node-js-require-all-files-in-a-folder
 
 import React from "react"
+import { CollectionEntry } from "astro:content"
 
 type Terminal = {
 	history: string[][]
@@ -11,14 +12,16 @@ type Terminal = {
 		clear?: boolean
 		next?: string[][]
 	}>
+	files?: CollectionEntry<'blog'>[]
 }
 
 type Props = {
 	args: string[]
 	terminal: Terminal
+	data?: any
 }
 
-export default function Shell({ args, terminal }: Props) {
+export default function Shell({ args, terminal, data }: Props) {
 	const cmd = cmds[args[0]]
 	if (!cmd) {
 		return cmds['commandNotFound']({
@@ -26,7 +29,7 @@ export default function Shell({ args, terminal }: Props) {
 			terminal,
 		})
 	}
-	return cmd({ args, terminal })
+	return cmd({ args, terminal, data })
 }
 
 const cmds: { [cmd: string]: (prop: Props) => React.JSX.Element } = {
@@ -34,6 +37,8 @@ const cmds: { [cmd: string]: (prop: Props) => React.JSX.Element } = {
 	banner: banner,
 	help: help,
 	echo: echo,
+	ls: ls,
+	cd: cd,
 	commandNotFound: commandNotFound,
 }
 
@@ -49,18 +54,73 @@ function ClickCmd({ cmd, terminal }: { cmd: string, terminal: Terminal }) {
 	> {cmd}</a>
 }
 
-function insertBetween(arr: any, between: any) {
+function insertBetween(arr: any, between: any): any[] {
 	return arr.reduce((acc: any, curr: any) => [...acc, between, curr], []).slice(1)
 }
 
+// generate by ChatGPT:
+// prompt: implement the path.join function in nodejs with function 
+// signature `function join(...paths)`, consider '../' in path.
+function join(...paths: string[]) {
+	const sanitizedPaths = paths.map(path => {
+		// Replace backslashes with forward slashes
+		path = path.replace(/\\/g, '/');
+
+		// Remove leading and trailing slashes
+		path = path.replace(/^\/|\/$/g, '');
+
+		return path;
+	});
+
+	let joinedPath = sanitizedPaths.join('/');
+
+	// Handle relative paths with "../"
+	const parts = joinedPath.split('/');
+	const newParts: string[] = [];
+
+	for (const part of parts) {
+		if (part === '..') {
+			newParts.pop();
+		} else if (part !== '.') {
+			newParts.push(part);
+		}
+	}
+
+	joinedPath = newParts.join('/');
+
+	// Add a leading slash if necessary
+	if (paths[0].startsWith('/') && !joinedPath.startsWith('/')) {
+		joinedPath = '/' + joinedPath;
+	}
+
+	return joinedPath;
+}
+
 // cmds
+
+function cd({ args }: Props) {
+	location.href = join(location.href, args[1])
+	return <></>
+}
+
+// ls('.', data)
+function ls({ /*args,*/ terminal }: Props) {
+	const files = terminal?.files || []
+	const formatedDate = (date: Date) => `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
+	return <ul>
+		{files.map(file => <li>• <span>{formatedDate(file.data.pubDate)}</span> <a className="underline hover:underline-offset-1" href={`/blog/${file.slug}`}>{file.data.title}</a></li>)}
+	</ul>
+}
 
 function commandNotFound({ args }: Props) {
 	return <p>command not found: {args[1]}</p>
 }
 
-function echo({ args }: Props) {
-	return <p>{args.slice(1).join(' ')}</p>
+function echo({ args, data }: Props) {
+	return <>
+		<p>{args.slice(1).join(' ')}</p>
+		{data && <pre className="overflow-scroll">{JSON.stringify(data, null, 2)}</pre>}
+	</>
 }
 
 function clear({ terminal }: Props) {

@@ -1,9 +1,11 @@
 import { useReducer } from 'react'
 import PS1 from './PS1.tsx'
 import Exec from './Exec.tsx'
+import { CollectionEntry } from 'astro:content'
 
-export default function Terminal({ initCmd }: {
-	initCmd: string[][]
+export default function Terminal({ initCmd, files }: {
+	initCmd?: string[][]
+	files?: CollectionEntry<'blog'>[]
 }) {
 	const [history, updateHistory] = useReducer(
 		(prev: string[][], action: {
@@ -25,6 +27,7 @@ export default function Terminal({ initCmd }: {
 				<Exec args={cmd} terminal={{
 					history,
 					updateHistory,
+					files
 				}} />
 			</div>
 		))}
