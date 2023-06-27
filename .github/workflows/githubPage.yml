@@ -21,32 +21,17 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
 
-      - use: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with: 
           node-version: 16
 
       - run: npm i 
 
       - run: npm run build
-
-  # Deploy job
-  deploy:
-    # Add a dependency to the build job
-    needs: build
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    # Specify runner + deployment step
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
+      
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.DEPLOY_KEY }}
+          publish_dir: ./dist
+        
