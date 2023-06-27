@@ -70,6 +70,13 @@ The blockquote element represents content that is quoted from another source, op
 </html>
 ```
 
+```js
+// add calculates the sum of number a and b
+function add(a, b){
+	return a + b;
+}
+```
+
 ## List Types
 
 #### Ordered List

@@ -2,7 +2,21 @@
 module.exports = {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
-		extend: {},
+		extend: {
+			typography: ({ theme }) => ({
+				DEFAULT: {
+					css: {
+						'--tw-prose-headings': theme('colors.base3'),
+						'--tw-prose-body': theme('colors.base2'),
+						'--tw-prose-counters': theme('colors.base2'),
+						'--tw-prose-code': theme('colors.base2'),
+						'--tw-prose-bold': theme('colors.base2'),
+						'--tw-prose-links': theme('colors.base2'),
+						'--tw-prose-quotes': theme('colors.base1'),
+					},
+				},
+			}),
+		},
 		colors: {
 			base03: '#002b36',
 			base02: '#073642',
@@ -22,5 +36,5 @@ module.exports = {
 			green: '#859900',
 		},
 	},
-	plugins: [],
+	plugins: [require('@tailwindcss/typography')],
 }
