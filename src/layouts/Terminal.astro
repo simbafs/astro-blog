@@ -11,7 +11,7 @@ import NavLink from '../components/NavLink.astro'
     <body>
         <div class="m-0 h-screen w-screen bg-base03 p-4 leading-5 text-base3">
             <div
-                class="h-full w-full rounded-lg border-2 border-solid border-base2"
+                class="flex h-full w-full flex-col rounded-lg border-2 border-solid border-base2"
             >
                 <div class="flex flex-wrap border-b-2 px-2 py-3">
                     <div class="flex items-center space-x-2">
@@ -22,7 +22,7 @@ import NavLink from '../components/NavLink.astro'
                         </div>
                     </div>
                     <div class="grow">
-                        <p class="break-all font-bold text-center">
+                        <p class="break-all text-center font-bold">
                             &gt; ssh blog.simbafs.cc &lt;
                         </p>
                     </div>
@@ -32,16 +32,9 @@ import NavLink from '../components/NavLink.astro'
                         <NavLink href="/search">[S]earch</NavLink>
                         <NavLink href="/about">a[B]out</NavLink>
                         <NavLink href="/tag">[T]ag</NavLink>
-                        <!-- <span class="bg-base3 text-base03 hover:underline" -->
-                        <!--     >[H]ome</span -->
-                        <!-- > -->
-                        <!-- <span class="hover:underline">[A]chieve</span> -->
-                        <!-- <span class="hover:underline">[S]earch</span> -->
-                        <!-- <span class="hover:underline">a[B]out</span> -->
-                        <!-- <span class="hover:underline">[T]ag</span> -->
                     </div>
                 </div>
-                <div class="p-1">
+                <div class="grow overflow-scroll p-1">
                     <slot />
                 </div>
             </div>
