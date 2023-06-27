@@ -105,10 +105,11 @@ function cd({ args }: Props) {
 
 // ls('.', data)
 function ls({ /*args,*/ terminal }: Props) {
+	// TODO base
 	const files = terminal?.files || []
 	const formatedDate = (date: Date) => `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
 	return <ul>
-		{files.map(file => <li>• <span>{formatedDate(file.data.pubDate)}</span> <a className="underline hover:underline-offset-1" href={`/blog/${file.slug}`}>{file.data.title}</a></li>)}
+		{files.map(file => <li>• <span>{formatedDate(file.data.pubDate)}</span> <a className="underline hover:underline-offset-1" href={`/newBlog/blog/${file.slug}`}>{file.data.title}</a></li>)}
 	</ul>
 }
 
