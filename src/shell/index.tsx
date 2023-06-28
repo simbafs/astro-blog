@@ -103,6 +103,12 @@ function cd({ args }: Props) {
 		location.pathname = '/newBlog/';
 		return <></>
 	}
+
+	if (args[1][0] === '/') {
+		location.pathname = join('/newBlog/', args[1])
+		return <></>
+	}
+
 	location.href = join(location.href, args[1])
 	return <></>
 }
