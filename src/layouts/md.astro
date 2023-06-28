@@ -1,0 +1,18 @@
+---
+import TerminalLayout from './Terminal.astro'
+import Terminal from '../components/terminal/index'
+
+import PS1 from '../components/terminal/PS1.tsx'
+
+const path = Astro.url
+---
+
+<TerminalLayout>
+    <PS1 cmd={['open', path.pathname.replace('/newBlog', '')]} />
+    <div
+        class="grow overflow-scroll p-1 pt-4 prose lg:prose-xl hover:prose-a:underline-offset-1 max-w-none"
+    >
+        <slot />
+    </div>
+    <Terminal client:only />
+</TerminalLayout>
