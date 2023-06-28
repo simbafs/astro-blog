@@ -99,6 +99,10 @@ function join(...paths: string[]) {
 // cmds
 
 function cd({ args }: Props) {
+	if (args.length === 1) {
+		location.pathname = '/newBlog/';
+		return <></>
+	}
 	location.href = join(location.href, args[1])
 	return <></>
 }
