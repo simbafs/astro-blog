@@ -19,8 +19,8 @@ export default function Terminal({ initCmd, files }: {
 	)
 
 	return <>
-		{history.map(cmd => (
-			<div style={{
+		{history.map((cmd, index) => (
+			<div key={index} style={{
 				wordBreak: 'break-all',
 			}}>
 				<PS1 cmd={cmd} />

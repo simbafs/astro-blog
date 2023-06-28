@@ -21,35 +21,12 @@ type Props = {
 	data?: any
 }
 
-export default function Shell({ args, terminal, data }: Props) {
-	const cmd = cmds[args[0]]
-	if (!cmd) {
-		return cmds['commandNotFound']({
-			args: ['commandNotFound', ...args],
-			terminal,
-		})
-	}
-	return cmd({ args, terminal, data })
-}
-
-const cmds: { [cmd: string]: (prop: Props) => React.JSX.Element } = {
-	clear: clear,
-	banner: banner,
-	help: help,
-	echo: echo,
-	ls: ls,
-	cd: cd,
-	commandNotFound: commandNotFound,
-}
-
-export const cmdList = Object.keys(cmds)
-
 // helpers
 
 function ClickCmd({ cmd, terminal }: { cmd: string[], terminal: Terminal }) {
 	return <a
 		className="underline hover:underline-offset-1"
-		href="javascript:void(0)"
+		href="#"
 		onClick={() => terminal.updateHistory({ next: [cmd] })}
 	> {cmd.join(' ')}</a>
 }
@@ -96,9 +73,39 @@ function join(...paths: string[]) {
 	return joinedPath;
 }
 
+export default function Shell({ args, terminal, data }: Props) {
+	const cmd = cmds[args[0]]
+	if (!cmd) {
+		return cmds['commandNotFound']({
+			args: ['commandNotFound', ...args],
+			terminal,
+		})
+	}
+	return cmd({ args, terminal, data })
+}
+
+const cmds: { [cmd: string]: (prop: Props) => React.JSX.Element } = {
+	clear: clear,
+	banner: banner,
+	help: help,
+	echo: echo,
+	ls: ls,
+	cd: cd,
+	reboot: reboot,
+	commandNotFound: commandNotFound,
+}
+
+export const cmdList = Object.keys(cmds)
+
 // cmds
 
+function reboot() {
+	location.reload()
+	return <></>
+}
+
 function cd({ args }: Props) {
+	console.log(args)
 	if (args.length === 1) {
 		location.pathname = '/newBlog/';
 		return <></>
@@ -109,7 +116,7 @@ function cd({ args }: Props) {
 		return <></>
 	}
 
-	location.href = join(location.href, args[1])
+	location.pathname = join(location.pathname, args[1])
 	return <></>
 }
 
@@ -119,7 +126,7 @@ function ls({ /*args,*/ terminal }: Props) {
 	const files = terminal?.files || []
 	const formatedDate = (date: Date) => `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
 	return <ul>
-		{files.map(file => <li>• <span>{formatedDate(file.data.pubDate)}</span> <a className="underline hover:underline-offset-1" href={`/newBlog/blog/${file.slug}`}>{file.data.title}</a></li>)}
+		{files.map((file, index) => <li key={index}>• <span>{formatedDate(file.data.pubDate)}</span> <a className="underline hover:underline-offset-1" href={`/newBlog/blog/${file.slug}`}>{file.data.title}</a></li>)}
 	</ul>
 }
 
@@ -140,7 +147,7 @@ function clear({ terminal }: Props) {
 }
 
 function help({ terminal }: Props) {
-	return <p>Available commands: {insertBetween(cmdList.map(cmd => <ClickCmd cmd={[cmd]} terminal={terminal} />), ', ')}</p >
+	return <p>Available commands: {insertBetween(cmdList.map((cmd, index) => <ClickCmd key={index} cmd={[cmd]} terminal={terminal} />), ', ')}</p >
 }
 
 function banner({ terminal }: Props) {
