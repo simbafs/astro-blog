@@ -2,6 +2,8 @@
 
 終端機風格的網頁
 
+詳情請到 [simbafs/next-blog](https://github.com/simbafs/next-blog)
+
 # Credit
 
 astro official blog template
