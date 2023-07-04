@@ -105,7 +105,9 @@ function reboot() {
 }
 
 function cd({ args }: Props) {
-	console.log(args)
+	if (location.hash === '') {
+		location.href = location.href.replace('#', '')
+	}
 	if (args.length === 1) {
 		location.pathname = '/newBlog/';
 		return <></>
@@ -126,7 +128,7 @@ function ls({ /*args,*/ terminal }: Props) {
 	const files = terminal?.files || []
 	const formatedDate = (date: Date) => `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
 	return <ul>
-		{files.map((file, index) => <li key={index}>• <span>{formatedDate(file.data.pubDate)}</span> <a className="underline hover:underline-offset-1" href={`/newBlog/blog/${file.slug}`}>{file.data.title}</a></li>)}
+		{files.map((file, index) => <li key={index}>• <span>{formatedDate(file.data.pubDate)}</span> <a className="underline hover:underline-offset-1" href={`/newBlog/post/${file.slug}`}>{file.data.title}</a></li>)}
 	</ul>
 }
 

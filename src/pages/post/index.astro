@@ -1,7 +1,5 @@
 ---
 import Terminal from '../../components/terminal'
-import PS1 from '../../components/terminal/PS1.tsx'
-import Exec from '../../components/terminal/Exec.tsx'
 
 import TerminalLayout from '../../layouts/Terminal.astro'
 
@@ -14,5 +12,5 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <TerminalLayout>
-	<Terminal client:only initCmd={[['ls', '.']]} files={posts} />
+	<Terminal client:load initCmd={[['ls', '.']]} files={posts} />
 </TerminalLayout>
